@@ -5,25 +5,34 @@ import "math/rand"
 type input int
 
 const (
-	BUTTON_X input = iota
-	BUTTON_Y
-	BUTTON_A
-	BUTTON_B
+	buttonX input = iota
+	buttonY
+	buttonA
+	buttonB
 )
 
 type InputHandler struct {
-	buttonX, buttonY, buttonA, buttonB Command
+	ButtonX, ButtonY, ButtonA, ButtonB Command
 }
 
-func (ih InputHandler) handleInput() {
-	if isPressed(BUTTON_X) {
-		ih.buttonX.Execute()
-	} else if isPressed(BUTTON_Y) {
-		ih.buttonY.Execute()
-	} else if isPressed(BUTTON_A) {
-		ih.buttonA.Execute()
-	} else if isPressed(BUTTON_B) {
-		ih.buttonB.Execute()
+func NewInputHandler() InputHandler {
+	return InputHandler{
+		ButtonX: JumpCommand{},
+		ButtonY: FireCommand{},
+		ButtonA: LurchCommand{},
+		ButtonB: SwapCommand{},
+	}
+}
+
+func (ih InputHandler) HandleInput() {
+	if isPressed(buttonX) {
+		ih.ButtonX.Execute()
+	} else if isPressed(buttonY) {
+		ih.ButtonY.Execute()
+	} else if isPressed(buttonA) {
+		ih.ButtonA.Execute()
+	} else if isPressed(buttonB) {
+		ih.ButtonB.Execute()
 	}
 }
 
